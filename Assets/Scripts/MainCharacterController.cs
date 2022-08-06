@@ -162,10 +162,11 @@ public class MainCharacterController : MonoBehaviour
     void Movement()
     {
         Vector3 forwardMove = transform.forward * speed * Time.deltaTime;
-        Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.deltaTime;
-        //rb.MovePosition(rb.position + forwardMove+horizontalMove);
+        //Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.deltaTime;
         rb.MovePosition(rb.position + forwardMove);
 
+
+        //rb.MovePosition(rb.position + forwardMove+horizontalMove);
 
         if (rb.velocity.x < 50f)
         {

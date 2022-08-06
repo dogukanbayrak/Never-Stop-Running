@@ -11,6 +11,8 @@ TagManager:
   - RotationRight
   - FinishLine
   - BrushArea
+  - BrushRotate
+  - HorizontalReset
   layers:
   - Default
   - TransparentFX

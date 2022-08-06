@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
         }
         if (MainCharacterController.paintCheck)
         {
-            gameObject.transform.position = new Vector3(190, 20, 285);
+            gameObject.transform.position = new Vector3(246, 41, 181);
             gameObject.transform.rotation = Quaternion.Euler(28f, 0f, 0f);
         }
 
