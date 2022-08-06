@@ -21,7 +21,7 @@ public class PaintDenemeleri : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.AddForce(Vector3.up*brushSpeed);
-        pos = GameObject.Find("isikkaynagi").transform.position;
+        pos = transform.position;
     }
     void Update()
     {

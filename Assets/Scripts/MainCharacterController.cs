@@ -18,6 +18,7 @@ public class MainCharacterController : MonoBehaviour
     public float horizontalInput;
 
     private bool readyToJump;
+    Vector3 pos;
 
     public static bool paintCheck = false;
 
@@ -34,6 +35,7 @@ public class MainCharacterController : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        pos = transform.position;
     }
 
     
@@ -108,7 +110,7 @@ public class MainCharacterController : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         {
 
-            player.transform.position = new Vector3(0, 1, 0);
+            transform.position = pos;
         }
         if (collision.gameObject.tag == "RotationLeft")
         {
