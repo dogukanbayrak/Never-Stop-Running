@@ -30,6 +30,7 @@ public class MainCharacterController : MonoBehaviour
 
     public float distance;
     public Transform destinationPoint;
+    public static int indexFinder;
 
 
 
@@ -48,9 +49,15 @@ public class MainCharacterController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         pos = transform.position;
+        PositionManager.distanceList.Add(distance);
+        indexFinder = PositionManager.distanceList.Count -1 ;
+
     }
 
-    
+   
+
+
+
     void Update()
     {
         if (platformLeftCheck == true)
@@ -77,8 +84,14 @@ public class MainCharacterController : MonoBehaviour
         }
 
         distance = Vector3.Distance(transform.position, destinationPoint.position);
+        PositionManager.distanceList[indexFinder] = distance;
         //Debug.Log(distance);
 
+        //for(int i=0; i < 1; i++)
+        //{
+        //    PositionManager.distanceList.Add(distance);
+        //}
+        
 
     }
 

@@ -11,6 +11,7 @@ public class EnemyNavMesh : MonoBehaviour
     Vector3 pos;
 
     public float AIdistance;
+    public int indexFinder;
     public Transform destinationPoint;
 
     private void Awake()
@@ -22,6 +23,8 @@ public class EnemyNavMesh : MonoBehaviour
     private void Start()
     {
         pos = transform.position;
+        PositionManager.distanceList.Add(AIdistance);
+        indexFinder = PositionManager.distanceList.Count -1 ;
     }
 
 
@@ -31,6 +34,7 @@ public class EnemyNavMesh : MonoBehaviour
 
 
         AIdistance = Vector3.Distance(transform.position, destinationPoint.position);
+        PositionManager.distanceList[indexFinder] = AIdistance;
         //Debug.Log("enemy distance: " + AIdistance);
 
     }
