@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class OpponentsAI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     void Start()
     {
         NavMeshAgent nMesh = GetComponent<NavMeshAgent>();

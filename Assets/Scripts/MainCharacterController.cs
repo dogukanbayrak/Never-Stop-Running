@@ -19,8 +19,20 @@ public class MainCharacterController : MonoBehaviour
 
     private bool readyToJump;
     Vector3 pos;
-
     public static bool paintCheck = false;
+
+    //[Header("Rankings Settings")]
+    //public float playerDistance;
+    //public GameObject[] points;
+    //public PositionManager master;
+
+    [Header("Rankings Settings")]
+
+    public float distance;
+    public Transform destinationPoint;
+
+
+
 
 
     [Header("Platform Settings")]
@@ -63,38 +75,9 @@ public class MainCharacterController : MonoBehaviour
             rb.velocity = new Vector3(0f, 0f, 0f);
             anim.SetBool("runCheck", false);
         }
-        
 
-        //Vector3 direction = Vector3.forward * speed * Time.deltaTime;
-        //direction.Normalize();
-        //rb.velocity += direction;
-        //Debug.Log(rb.velocity);
-
-        //if (rb.velocity.z >= 5f && readyToJump)
-        //{
-        //    rb.velocity = Vector3.forward * 5f;
-        //}
-        //else if(!readyToJump)
-        //{
-
-        //    rb.velocity = Vector3.forward * 5f;
-        //}
-
-
-
-        // horizontalInput = Input.GetAxis("Horizontal");
-
-
-
-        //if (rb.velocity.z < speedLimit)
-        //{
-        //    //rb.velocity += Vector3.forward * speed;
-        //    rb.AddForce(Vector3.forward * speed);
-        //}
-        //if (rb.velocity.x < horizontalSpeedLimit)
-        //{
-
-        //}
+        distance = Vector3.Distance(transform.position, destinationPoint.position);
+        //Debug.Log(distance);
 
 
     }
@@ -156,7 +139,7 @@ public class MainCharacterController : MonoBehaviour
         {
             
             anim.SetBool("jumpCheck", true);
-            //transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime);
+            
             rb.velocity += Vector3.up * jumpSpeed;
             readyToJump = false;
         }
@@ -164,11 +147,11 @@ public class MainCharacterController : MonoBehaviour
     void Movement()
     {
         Vector3 forwardMove = transform.forward * speed * Time.deltaTime;
-        //Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.deltaTime;
+        
         rb.MovePosition(rb.position + forwardMove);
 
 
-        //rb.MovePosition(rb.position + forwardMove+horizontalMove);
+        
 
         if (rb.velocity.x < 50f)
         {
@@ -181,8 +164,7 @@ public class MainCharacterController : MonoBehaviour
                     speed -= 7f * Time.deltaTime;
                 }
 
-                //rb.AddForce(Vector3.right * horizontalSpeed, ForceMode.Force);
-                //gameObject.transform.position += new Vector3(0.2f, 0,0);
+                
             }
             if (Input.GetKey("a"))
             {
@@ -193,9 +175,7 @@ public class MainCharacterController : MonoBehaviour
                     speed -= 7f * Time.deltaTime;
                 }
 
-                //gameObject.transform.position += new Vector3(-0.2f, 0, 0);
-
-                //rb.AddForce(Vector3.left*horizontalSpeed, ForceMode.Force);
+               
             }
             if (Input.GetKeyUp("d") || Input.GetKey("a"))
             {
@@ -226,5 +206,7 @@ public class MainCharacterController : MonoBehaviour
     {
         rb.velocity += Vector3.right * platformForce;
     }
+
+    
 }
 

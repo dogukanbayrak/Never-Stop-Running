@@ -8,16 +8,31 @@ public class EnemyNavMesh : MonoBehaviour
     [SerializeField] private Transform movePositionTransform;
     private NavMeshAgent navMeshAgent;
     public GameObject enemy;
+    Vector3 pos;
+
+    public float AIdistance;
+    public Transform destinationPoint;
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         
     }
 
+    private void Start()
+    {
+        pos = transform.position;
+    }
+
 
     private void Update()
     {
         navMeshAgent.destination = movePositionTransform.position;
+
+
+        AIdistance = Vector3.Distance(transform.position, destinationPoint.position);
+        //Debug.Log("enemy distance: " + AIdistance);
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -25,7 +40,7 @@ public class EnemyNavMesh : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
 
-            enemy.transform.position = new Vector3(0, 1, 0);
+            transform.position = pos;
         }
     }
 
