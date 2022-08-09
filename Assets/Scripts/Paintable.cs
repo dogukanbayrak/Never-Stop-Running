@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaintDenemeleri : MonoBehaviour
+public class Paintable : MonoBehaviour
 {
     RaycastHit cube;
     [SerializeField] private float lightRange;

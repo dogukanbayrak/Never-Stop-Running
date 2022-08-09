@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class deneme : MonoBehaviour
+public class RandomSpots : MonoBehaviour
 {
 
     public float speed;
