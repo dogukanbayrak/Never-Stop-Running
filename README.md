@@ -15,3 +15,8 @@ After finish , you can paint the wall.
 https://user-images.githubusercontent.com/25830770/183964644-c8b2ecdf-5a0f-4525-a708-6c8a751e8465.mp4
 
 
+
+Rotating platforms removed because there was a bug in android version. I removed on both version.
+
+https://user-images.githubusercontent.com/25830770/183968063-29866bdc-e6d7-46c4-98b9-f6c6a52fa8e9.mp4
+
