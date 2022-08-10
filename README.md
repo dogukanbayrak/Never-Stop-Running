@@ -2,7 +2,13 @@
 
 It's project for job interview. Some of assests copyrights belongs to Panteon Gaming , I am not responsible for any problems caused by copyright. Project codes written by me and they are free to use.
 
+
+For the apk file : https://drive.google.com/file/d/1Ao9uZqi9QNgj0lhSbAPxjBocFEuP6zvM/view?usp=sharing
+For the pc version : https://drive.google.com/drive/folders/12Vf4SuY2G93zA4geeZqLhzgBhi_ahPQf?usp=sharing
+
  I'm worked on game mechanics not level design.
+
+
 
 
 
