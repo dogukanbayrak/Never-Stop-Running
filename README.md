@@ -8,7 +8,7 @@ For the pc version : https://drive.google.com/drive/folders/12Vf4SuY2G93zA4geeZq
 
  I'm worked on game mechanics not level design.
 
-I used Unity 2020 LTS for this game.
+I used Unity 2020 LTS to make this game.
 
 
 
