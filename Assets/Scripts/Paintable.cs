@@ -13,6 +13,10 @@ public class Paintable : MonoBehaviour
     public float brushHorizontalSpeed;
 
 
+    public bool rightMovement = false;
+    public bool leftMovement = false;
+
+
     private Rigidbody rb;
     private bool rotateCheck=false;
     Vector3 pos;
@@ -28,7 +32,8 @@ public class Paintable : MonoBehaviour
         if (MainCharacterController.paintCheck)
         {
             Paint();
-            Movement();
+            //Movement();
+            MobileMovement();
         }
 
         
@@ -64,12 +69,12 @@ public class Paintable : MonoBehaviour
             rb.AddForce(Vector3.up * brushSpeed);
         }
 
-        if (Input.GetKey("d"))
+        if (Input.GetKey("d") )
         {
             rb.velocity += Vector3.right * brushHorizontalSpeed;
            
         }
-        if (Input.GetKey("a"))
+        if (Input.GetKey("a") )
         {
             rb.velocity += Vector3.left * brushHorizontalSpeed;
 
@@ -92,6 +97,50 @@ public class Paintable : MonoBehaviour
         }
 
 
+    }
+
+    void MobileMovement() {
+        
+        Vector3 rightMove = new Vector3(30f, transform.position.y, transform.position.z);
+        Vector3 leftMove = new Vector3(-30f, transform.position.y, transform.position.z);
+
+        if (rotateCheck)
+        {
+            rb.AddForce(Vector3.down * brushSpeed);
+        }
+        else if (!rotateCheck)
+        {
+            rb.AddForce(Vector3.up * brushSpeed);
+        }
+
+
+        if (Input.touchCount > 0)
+        {
+            Touch finger = Input.GetTouch(0);
+
+            if (finger.deltaPosition.x > 50f)
+            {
+                rightMovement = true;
+                leftMovement = false;
+            }
+            if (finger.deltaPosition.x < -50f)
+            {
+                rightMovement = false;
+                leftMovement = true;
+            }
+
+            if (rightMovement)
+            {
+                transform.position = Vector3.Lerp(transform.position, rightMove, 1f * Time.deltaTime);
+
+            }
+            if (leftMovement)
+            {
+                transform.position = Vector3.Lerp(transform.position, leftMove, 1f * Time.deltaTime);
+            }
+
+
+        }
     }
 
 }

@@ -13,18 +13,17 @@ public class MainCharacterController : MonoBehaviour
     public float speedLimit;
     public float jumpSpeed;
     public float horizontalSpeed;
-    public float horizontalSpeedLimit;
     private bool horizontalBrake;
     public float horizontalInput;
+
+    public  bool rightMovement=false;
+    public  bool leftMovement=false;
+
 
     private bool readyToJump;
     Vector3 pos;
     public static bool paintCheck = false;
 
-    //[Header("Rankings Settings")]
-    //public float playerDistance;
-    //public GameObject[] points;
-    //public PositionManager master;
 
     [Header("Rankings Settings")]
 
@@ -39,8 +38,8 @@ public class MainCharacterController : MonoBehaviour
     [Header("Platform Settings")]
 
     public float platformForce;
-    private bool platformLeftCheck;
-    private bool platformRightCheck;
+    private bool platformLeftCheck = false;
+    private bool platformRightCheck = false;
 
 
     
@@ -60,6 +59,9 @@ public class MainCharacterController : MonoBehaviour
 
     void Update()
     {
+
+        
+
         if (platformLeftCheck == true)
         {
             PlatformRotationLeft();
@@ -71,11 +73,12 @@ public class MainCharacterController : MonoBehaviour
 
         if (!paintCheck)
         {
-            Movement();
-
-            Jumping();
-
-            HorizontalBrakeSystem();
+            // for the mobile movement
+            MobileMovement();
+            //for the pc movement and jumping
+            //Movement();
+            //Jumping();
+            //HorizontalBrakeSystem();
         }
         else if (paintCheck)
         {
@@ -83,14 +86,11 @@ public class MainCharacterController : MonoBehaviour
             anim.SetBool("runCheck", false);
         }
 
+        
+
         distance = Vector3.Distance(transform.position, destinationPoint.position);
         PositionManager.distanceList[indexFinder] = distance;
-        //Debug.Log(distance);
-
-        //for(int i=0; i < 1; i++)
-        //{
-        //    PositionManager.distanceList.Add(distance);
-        //}
+        
         
 
     }
@@ -126,6 +126,11 @@ public class MainCharacterController : MonoBehaviour
         {
             paintCheck = true;
         }
+        if (other.gameObject.tag == "Enemy")
+        {
+
+            transform.position = pos;
+        }
     }
     private void OnCollisionExit(Collision collision)
     {
@@ -148,55 +153,112 @@ public class MainCharacterController : MonoBehaviour
 
     void Jumping()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && readyToJump==true)
+        if (Input.GetKeyDown(KeyCode.Space) && readyToJump == true)
         {
-            
+
             anim.SetBool("jumpCheck", true);
-            
+
             rb.velocity += Vector3.up * jumpSpeed;
             readyToJump = false;
         }
+
     }
-    void Movement()
+    void MobileMovement()
     {
-        Vector3 forwardMove = transform.forward * speed * Time.deltaTime;
-        
-        rb.MovePosition(rb.position + forwardMove);
 
-
+        transform.Translate(0, 0, speed * Time.deltaTime);
         
 
-        if (rb.velocity.x < 50f)
+        Vector3 rightMove = new Vector3(50f, transform.position.y, transform.position.z);
+        Vector3 leftMove = new Vector3(-50f, transform.position.y, transform.position.z);
+
+
+        
+
+        if (Input.touchCount > 0)
         {
-            if (Input.GetKey("d"))
+            Touch finger = Input.GetTouch(0);
+
+            if (finger.deltaPosition.x > 50f)
             {
-                rb.velocity += Vector3.right * horizontalSpeed;
-                horizontalBrake = false;
-                if (speed > 15)
+                rightMovement = true;
+                leftMovement = false;
+            }
+            if (finger.deltaPosition.x < -50f)
+            {
+                rightMovement = false;
+                leftMovement = true;
+            }
+
+            if (rightMovement)
+            {
+                transform.position = Vector3.Lerp(transform.position, rightMove, horizontalSpeed * Time.deltaTime);
+
+            }
+            if (leftMovement)
+            {
+                transform.position = Vector3.Lerp(transform.position, leftMove, horizontalSpeed * Time.deltaTime);
+            }
+
+            if (Input.touchCount > 0 && readyToJump == true)
+            {
+                if (finger.deltaPosition.y > 50f)
                 {
-                    speed -= 7f * Time.deltaTime;
+                    anim.SetBool("jumpCheck", true);
+                    rb.velocity = Vector3.zero;
+                    rb.velocity = Vector3.up * jumpSpeed;
+
+                readyToJump = false;
                 }
 
                 
             }
-            if (Input.GetKey("a"))
-            {
-                rb.velocity += Vector3.left * horizontalSpeed;
-                horizontalBrake = false;
-                if (speed > 15)
-                {
-                    speed -= 7f * Time.deltaTime;
-                }
 
-               
-            }
-            if (Input.GetKeyUp("d") || Input.GetKey("a"))
-            {
-                horizontalBrake = true;
-
-            }
         }
 
+
+        
+
+    }
+
+    void Movement()
+    {
+        // for the pc version
+
+
+        //Vector3 forwardMove = transform.forward * speed * Time.deltaTime;
+        //rb.MovePosition(rb.position + forwardMove);
+
+        //if (rb.velocity.x < 50f)
+        //{
+        //    if (Input.GetKey("d") )
+        //    {
+        //        rb.velocity += Vector3.right * horizontalSpeed* Time.deltaTime;
+        //        horizontalBrake = false;
+        //        if (speed > 15)
+        //        {
+        //            speed -= 7f * Time.deltaTime;
+        //        }
+
+
+        //    }
+        //    if (Input.GetKey("a"))
+        //    {
+        //        rb.velocity += Vector3.left * horizontalSpeed*Time.deltaTime;
+        //        horizontalBrake = false;
+        //        if (speed > 15)
+        //        {
+        //            speed -= 7f * Time.deltaTime;
+        //        }
+
+
+        //    }
+        //    if (Input.GetKeyUp("d") || Input.GetKey("a") )
+        //    {
+        //        horizontalBrake = true;
+
+        //    }
+        //}
     }
 
     void HorizontalBrakeSystem()
@@ -220,6 +282,7 @@ public class MainCharacterController : MonoBehaviour
         rb.velocity += Vector3.right * platformForce;
     }
 
+    
     
 }
 

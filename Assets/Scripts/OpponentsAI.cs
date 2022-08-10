@@ -13,6 +13,7 @@ public class OpponentsAI : MonoBehaviour
     [Header("Nav Settings")]
     [SerializeField] private Transform movePositionTransform;
     private NavMeshAgent navMeshAgent;
+    
     Vector3 pos;
 
     public float AIdistance;
@@ -46,16 +47,19 @@ public class OpponentsAI : MonoBehaviour
         PositionManager.distanceList[indexFinder] = AIdistance;
         //Debug.Log("enemy distance: " + AIdistance);
 
-        if (AIdistance < 2)
+        if (AIdistance < 3)
         {
             anim.SetBool("destinationCheck", true);
+            //gameObject.GetComponent<NavMeshAgent>().enabled=false;
+            
+            
         }
-        if (AIdistance > 2)
+        if (AIdistance > 3)
         {
             anim.SetBool("destinationCheck", false);
         }
 
-
+        
 
     }
 

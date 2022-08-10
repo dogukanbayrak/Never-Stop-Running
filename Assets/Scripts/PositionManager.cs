@@ -15,6 +15,9 @@ public class PositionManager : MonoBehaviour
 
     public TextMeshProUGUI posText;
 
+    public GameObject paintGun;
+    public GameObject paintableWall;
+
 
     [Header("ex")]
     public static List<float> distanceList;
@@ -30,14 +33,24 @@ public class PositionManager : MonoBehaviour
     }
     private void Start()
     {
-        playerPositions = new float[distanceList.Count];
+        playerPositions = new float[10];
     }
 
     void Update()
     {
         
         PositionCalculator();
-        PositionTextUpdate();
+        if (!MainCharacterController.paintCheck)
+        {
+            PositionTextUpdate();
+        }
+        
+
+        if (MainCharacterController.paintCheck)
+        {
+            paintGun.SetActive(true);
+            paintableWall.SetActive(true);
+        }
         
     }
 
@@ -80,7 +93,7 @@ public class PositionManager : MonoBehaviour
     public void PositionTextUpdate()
     {
         int posTextFixer = playerCurrentPosition +1 ;
-        posText.text = posTextFixer.ToString()+ " / " + distanceList.Count;
+        posText.text ="Ranking : "+ posTextFixer.ToString()+ " / " + distanceList.Count;
     }
 
 }
