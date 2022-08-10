@@ -39,7 +39,9 @@ public class Paintable : MonoBehaviour
 
     public void Paint()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out cube, lightRange, lm))
+        // fr--right
+        if (Physics.Raycast(transform.position, transform.right, out cube, lightRange, lm))
+
         {
             //Debug.Log(cube.transform.tag);
             if(cube.transform.tag!="BrushArea"){
