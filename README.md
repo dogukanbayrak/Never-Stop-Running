@@ -11,7 +11,7 @@ I'm worked on game mechanics not level design.
 I used Unity 2020 LTS to make this game.
 
 
-How to play?
+**How to play?**
 
 Swipe screen to move for mobile , Use "A" and "D" for pc.
 
