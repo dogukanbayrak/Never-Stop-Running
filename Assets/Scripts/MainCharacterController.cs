@@ -22,7 +22,7 @@ public class MainCharacterController : MonoBehaviour
 
     private bool readyToJump;
     Vector3 pos;
-    public static bool paintCheck = false;
+    public static bool paintCheck;
 
 
     [Header("Rankings Settings")]
@@ -46,6 +46,7 @@ public class MainCharacterController : MonoBehaviour
 
     void Start()
     {
+        paintCheck = false;
         anim = GetComponent<Animator>();
         pos = transform.position;
         PositionManager.distanceList.Add(distance);
@@ -85,10 +86,10 @@ public class MainCharacterController : MonoBehaviour
             rb.velocity = new Vector3(0f, 0f, 0f);
             anim.SetBool("runCheck", false);
         }
-
         
 
-        distance = Vector3.Distance(transform.position, destinationPoint.position);
+
+            distance = Vector3.Distance(transform.position, destinationPoint.position);
         PositionManager.distanceList[indexFinder] = distance;
         
         
@@ -167,13 +168,13 @@ public class MainCharacterController : MonoBehaviour
     {
 
         transform.Translate(0, 0, speed * Time.deltaTime);
-        
+
 
         Vector3 rightMove = new Vector3(50f, transform.position.y, transform.position.z);
         Vector3 leftMove = new Vector3(-50f, transform.position.y, transform.position.z);
 
 
-        
+
 
         if (Input.touchCount > 0)
         {
@@ -208,57 +209,58 @@ public class MainCharacterController : MonoBehaviour
                     rb.velocity = Vector3.zero;
                     rb.velocity = Vector3.up * jumpSpeed;
 
-                readyToJump = false;
+                    readyToJump = false;
                 }
-
-                
             }
-
-        }
-
-
+            }
+            if (Input.touchCount <= 0)
+            {
+                rightMovement = false;
+                leftMovement = false;
+            }
         
-
     }
+        
 
     void Movement()
     {
-        // for the pc version
+        //for the pc version
+
+       Vector3 forwardMove = transform.forward * speed * Time.deltaTime;
+        rb.MovePosition(rb.position + forwardMove);
+
+        if (rb.velocity.x < 50f)
+        {
+            if (Input.GetKey("d"))
+            {
+               
+                rb.velocity += Vector3.right * horizontalSpeed * Time.deltaTime;
+                horizontalBrake = false;
+                if (speed > 15)
+                {
+                    speed -= 7f * Time.deltaTime;
+                }
 
 
-        //Vector3 forwardMove = transform.forward * speed * Time.deltaTime;
-        //rb.MovePosition(rb.position + forwardMove);
+            }
+            if (Input.GetKey("a"))
+            {
 
-        //if (rb.velocity.x < 50f)
-        //{
-        //    if (Input.GetKey("d") )
-        //    {
-        //        rb.velocity += Vector3.right * horizontalSpeed* Time.deltaTime;
-        //        horizontalBrake = false;
-        //        if (speed > 15)
-        //        {
-        //            speed -= 7f * Time.deltaTime;
-        //        }
+                rb.velocity += Vector3.left * horizontalSpeed * Time.deltaTime;
+                horizontalBrake = false;
+                if (speed > 15)
+                {
+                    speed -= 7f * Time.deltaTime;
+                }
 
 
-        //    }
-        //    if (Input.GetKey("a"))
-        //    {
-        //        rb.velocity += Vector3.left * horizontalSpeed*Time.deltaTime;
-        //        horizontalBrake = false;
-        //        if (speed > 15)
-        //        {
-        //            speed -= 7f * Time.deltaTime;
-        //        }
+            }
+            if (Input.GetKeyUp("d") || Input.GetKey("a"))
+            {
+                horizontalBrake = true;
 
-
-        //    }
-        //    if (Input.GetKeyUp("d") || Input.GetKey("a") )
-        //    {
-        //        horizontalBrake = true;
-
-        //    }
-        //}
+            }
+        }
     }
 
     void HorizontalBrakeSystem()
@@ -282,7 +284,5 @@ public class MainCharacterController : MonoBehaviour
         rb.velocity += Vector3.right * platformForce;
     }
 
-    
-    
 }
 

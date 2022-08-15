@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
+
         SceneManager.LoadScene("SampleScene");
     }
 

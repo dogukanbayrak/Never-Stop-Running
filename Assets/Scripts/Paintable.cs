@@ -44,11 +44,11 @@ public class Paintable : MonoBehaviour
 
     public void Paint()
     {
-        // fr--right
+        
         if (Physics.Raycast(transform.position, transform.right, out cube, lightRange, lm))
 
         {
-            //Debug.Log(cube.transform.tag);
+            
             if(cube.transform.tag!="BrushArea"){
                 var rotate = Quaternion.Euler(-90, 0f, 0f);
                 var paint = Instantiate(brush, cube.point + Vector3.back * 0.1f, rotate);
@@ -140,6 +140,11 @@ public class Paintable : MonoBehaviour
             }
 
 
+        }
+        if (Input.touchCount <= 0)
+        {
+            rightMovement = false;
+            leftMovement = false;
         }
     }
 
